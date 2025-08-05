@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Expense Splitter</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4CAF50">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+    }
+  </script>
+</head>
+<body>
+  <div class="tabs">
+    <div class="tab active" data-target="participants">Participantes</div>
+    <div class="tab" data-target="payments">Añadir Pagos</div>
+    <div class="tab" data-target="summary">Resumen</div>
+    <div class="tab" data-target="confirm">Confirmar Deudas</div>
+  </div>
+
+  <section id="participants" class="section active">
+    <h2>Añadir Participante</h2>
+    <input type="text" id="participant-name" placeholder="Nombre de participante" />
+    <button id="add-participant-btn">Añadir</button>
+    <h3>Participantes:</h3>
+    <ul id="participant-list"></ul>
+  </section>
+
+  <section id="payments" class="section">
+    <h2>Añadir Pago</h2>
+    <input type="number" id="payment-amount" placeholder="Cantidad" step="0.01" min="0"/>
+    <label for="payment-payer">Pagado por:</label>
+    <select id="payment-payer"></select>
+    <h4>Compartido entre:</h4>
+    <div id="payment-shares"></div>
+    <button id="add-payment-btn">Registrar Pago</button>
+  </section>
+
+  <section id="summary" class="section">
+    <h2>Resumen de Deudas Netas</h2>
+    <div id="debt-summary">No hay deudas.</div>
+  </section>
+
+  <section id="confirm" class="section">
+    <h2>Confirmar Cobro de Deudas</h2>
+    <p class="hint">Marca como cobrada una deuda para eliminarla. Mientras no se confirme, aparece como <span class="moroso">MOROSO</span>.</p>
+    <div id="confirm-list">No hay deudas pendientes.</div>
+  </section>
+
+  <footer class="footer">
+    <button id="reset-data" class="danger">Borrar datos</button>
+    <span class="muted">Los datos se guardan en este dispositivo.</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
