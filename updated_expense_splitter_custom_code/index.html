@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reparte Gastos (Online)</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4CAF50">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+    }
+  </script>
+</head>
+<body>
+  <section id="gate" class="section active">
+    <h1>Reparte Gastos</h1>
+    <div class="card">
+      <h2>Crear grupo</h2>
+      <input id="create-code" type="text" placeholder="Elige un código de grupo (p.ej. MIVIAJE)"/>
+      <input id="creator-name" type="text" placeholder="Tu nombre"/>
+      <button id="create-group-btn">Crear grupo</button>
+      <p class="muted">Usa un código fácil de recordar para invitar a quien quieras.</p>
+    </div>
+    <div class="card">
+      <h2>Entrar en grupo</h2>
+      <input id="join-name" type="text" placeholder="Tu nombre"/>
+      <input id="join-code" type="text" placeholder="Código del grupo" maxlength="32"/>
+      <button id="join-group-btn">Entrar</button>
+    </div>
+  </section>
+  <section id="app" class="section">
+    <header class="bar">
+      <div>
+        <strong>Grupo:</strong> <span id="group-code"></span> ·
+        <strong>Usuario:</strong> <span id="user-name"></span>
+      </div>
+      <div class="bar-actions">
+        <button id="copy-code">Copiar código</button>
+        <button id="leave-group" class="danger">Salir</button>
+      </div>
+    </header>
+    <div class="tabs">
+      <div class="tab active" data-target="participants">Participantes</div>
+      <div class="tab" data-target="payments">Añadir Pagos</div>
+      <div class="tab" data-target="summary">Resumen</div>
+      <div class="tab" data-target="confirm">Confirmar Deudas</div>
+    </div>
+    <section id="participants" class="subsection active">
+      <h2>Añadir Participante</h2>
+      <input type="text" id="participant-name" placeholder="Nombre de participante"/>
+      <button id="add-participant-btn">Añadir</button>
+      <h3>Participantes:</h3>
+      <ul id="participant-list"></ul>
+    </section>
+    <section id="payments" class="subsection">
+      <h2>Añadir Pago</h2>
+      <input type="number" id="payment-amount" placeholder="Cantidad" step="0.01" min="0"/>
+      <label for="payment-payer">Pagado por:</label>
+      <select id="payment-payer"></select>
+      <h4>Compartido entre:</h4>
+      <div id="payment-shares"></div>
+      <button id="add-payment-btn">Registrar Pago</button>
+    </section>
+    <section id="summary" class="subsection">
+      <h2>Resumen de Deudas Netas</h2>
+      <div id="debt-summary">No hay deudas.</div>
+    </section>
+    <section id="confirm" class="subsection">
+      <h2>Confirmar Cobro de Deudas</h2>
+      <p class="hint">Pulsa “Confirmar Cobro” para saldar. Mientras no se confirme, aparece <span class="moroso">MOROSO</span>.</p>
+      <div id="confirm-list">No hay deudas pendientes.</div>
+    </section>
+  </section>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
